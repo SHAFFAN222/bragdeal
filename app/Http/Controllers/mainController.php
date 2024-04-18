@@ -23,7 +23,7 @@ class MainController extends Controller
             'fname' => 'required|string',
             'lname' => 'required|string',
             'about' => 'required|string',
-            'gender' => 'nullable|in:M,F,O',
+            'gender' => 'required|in:M,F,O',
             'email' => 'required|string|email|unique:users',
             'phone' => 'required|string|max:15|unique:users',
             'password' => 'required|string|min:8', // Minimum password length set to 8
