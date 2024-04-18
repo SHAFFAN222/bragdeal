@@ -5,8 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\API\BaseController as BaseController;
 
 class MainController extends Controller
 {
@@ -104,5 +104,44 @@ class MainController extends Controller
         $user = Auth::user();
         dd($user);
     }
+// update user
+public function update(Request $request, $id)
+    {
+    \Log::info('Request Data: ', $request->all());
+        // Validation rules
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string',
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'about' => 'required|string',
+            'gender' => 'nullable|in:M,F,O',
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+            'phone' => 'required|string',
+            'password' => 'sometimes|string'
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user = User::findOrFail($id);
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->username = $request->input('username');
+        $user->fname = $request->input('fname');
+        $user->lname = $request->input('lname');
+        $user->about = $request->input('about');
+        $user->gender = $request->input('gender');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        
+        $user->save();
+
+        return response()->json(['message' => 'User updated successfully'], 200);
+    }
 }

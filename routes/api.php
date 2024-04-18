@@ -7,6 +7,11 @@ use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 
 Route::post('/signup', [MainController::class, 'signup']);
 Route::post('/login', [MainController::class, 'login']);
+Route::put('/update/{id}', [MainController::class, 'update']);
+Route::patch('/update/{id}', [MainController::class, 'update']);
+
+
+
 
 
 Route::middleware('auth:sanctum')->group( function () {
