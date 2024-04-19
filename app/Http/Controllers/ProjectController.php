@@ -15,15 +15,18 @@ class ProjectController extends Controller
       return response()->json($projects);
 
     }
-    public function get_project($id)
+    public function get($id)
     
     {    
       $project = Project::where('id',$id)->first();  
      return response()->json(['errors' => $project->errors()], 422);
     }
-public function getbyuser() {
-    $project = Project::where('uesr_id',$id)->get();
-    return response()->json(['errors' => $project->errors()], 422);
+public function getbyuser(Request $request,$user_id) {
+   
+    $project = Project::where('user_id',$user_id)->get();
+    // dd($project); 
+    return response()->json($project);
+    // return response()->json(['errors' => $project->errors()], 422);
 }
     
 public function add(Request $request)
