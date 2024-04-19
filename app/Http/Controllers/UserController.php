@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
-class MainController extends Controller
+class UserController extends Controller
 {
     /**
      * Handle user signup.
@@ -66,36 +66,38 @@ class MainController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    
-     
-      /**
+
+
+    /**
      * Login api
      *
      * @return \Illuminate\Http\Response
      */
-   
-     public function login(Request $request){
+
+    public function login(Request $request)
+    {
         $loginUserData = $request->validate([
-            'email'=>'required|string|email',
-            'password'=>'required|min:8'
+            'email' => 'required|string|email',
+            'password' => 'required|min:8'
         ]);
-        $user = User::where('email',$loginUserData['email'])->first();
-        if(!$user || !Hash::check($loginUserData['password'],$user->password)){
+        $user = User::where('email', $loginUserData['email'])->first();
+        if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
             return response()->json([
                 'message' => 'Invalid Credentials'
-            ],401);
+            ], 401);
         }
-        $token = $user->createToken($user->username.'-AuthToken')->plainTextToken;
+        $token = $user->createToken($user->username . '-AuthToken')->plainTextToken;
         return response()->json([
             'access_token' => $token,
         ]);
     }
 
-    public function logout(){
+    public function logout()
+    {
         auth()->user()->tokens()->delete();
-    
+
         return response()->json([
-          "message"=>"logged out"
+            "message" => "logged out"
         ]);
     }
 
@@ -104,10 +106,11 @@ class MainController extends Controller
         $user = Auth::user();
         dd($user);
     }
-// update user
-public function update(Request $request, $id)
+    // update user
+    public function update(Request $request)
     {
-    \Log::info('Request Data: ', $request->all());
+        $user = Auth::user();
+
         // Validation rules
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
@@ -115,18 +118,21 @@ public function update(Request $request, $id)
             'lname' => 'required|string',
             'about' => 'required|string',
             'gender' => 'nullable|in:M,F,O',
-            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($id)],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($user->id)],
             'phone' => 'required|string',
             'password' => 'sometimes|string'
         ]);
+        if ($user->email = $request->email) {
 
+
+        }
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors()
             ], 422);
         }
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($user->id);
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
@@ -139,9 +145,14 @@ public function update(Request $request, $id)
         $user->gender = $request->input('gender');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
-        
-        $user->save();
 
-        return response()->json(['message' => 'User updated successfully'], 200);
+        $user->save();
+        $user = User::where('id', $user->id)->first();
+        return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
     }
+
+
+
+
+
 }

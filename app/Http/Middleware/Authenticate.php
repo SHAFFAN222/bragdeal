@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 use App\Models\User;
+use App\Models\Ticket;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
