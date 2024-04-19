@@ -31,7 +31,7 @@ Route::get('/getbyuser', [ProjectController::class, 'get_user']);
 Route::get('/edit/{id}', [ProjectController::class, 'edit']);
 Route::get('/delete/{id}', [ProjectController::class, 'delete']);
 Route::post('/add', [ProjectController::class, 'add']);
-Route::post('/poar', [ProjectController::class, 'add']);
+Route::post('/update/{id}', [ProjectController::class, 'update']);
 
         });
     

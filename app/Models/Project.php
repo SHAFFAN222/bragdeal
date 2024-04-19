@@ -20,5 +20,6 @@ class Project extends Model
      
        
     ];
+    public $timestamps = false;
     
 }

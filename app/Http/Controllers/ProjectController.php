@@ -28,12 +28,12 @@ public function getbyuser() {
     
 public function add(Request $request)
 {
-   
+
     $rules = [
         'user_id' => 'required|integer', // Assuming user_id is an integer
         'title' => 'required|string', // Assuming title is a string
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after_or_equal:start_date', // Ensuring end_date is after or equal to start_date
+        // 'start_date' => 'date',
+        // 'end_date' => 'date|after_or_equal:start_date', // Ensuring end_date is after or equal to start_date
         'type' => 'required|string', // Assuming type is a string
         'attachment' => 'required|string', // Assuming attachment is a string (file path or URL)
         'status' => 'required|in:active,inactive'
@@ -41,6 +41,8 @@ public function add(Request $request)
 
     // Validate the request
     $validator = Validator::make($request->all(), $rules);
+
+    // dd($validator);
 
     if ($validator->fails()) {
      
@@ -55,19 +57,18 @@ public function add(Request $request)
     $project->attachment = $request->input('attachment');
     $project->status = $request->input('status');
 
-    // Save the project
     $project->save();
 
-    return response()->json($project, 201);
+    return response()->json(['errors' => $project->errors()], 422);
 }
-public function update(Request $request, $id)
+public function update(Request $request , $id)
 {
     // Validation rules
     $rules = [
         'user_id' => 'sometimes|required|integer', // Allow user_id to be optional, but if provided, it must be an integer
         'title' => 'sometimes|required|string', // Allow title to be optional, but if provided, it must be a string
-        'start_date' => 'sometimes|required|date',
-        'end_date' => 'sometimes|required|date|after_or_equal:start_date',
+        'start_date' => 'sometimes|date',
+        'end_date' => 'sometimes|date|after_or_equal:start_date',
         'type' => 'sometimes|required|string',
         'attachment' => 'sometimes|required|string',
         'status' => 'sometimes|required|in:active,inactive'
@@ -106,12 +107,11 @@ public function update(Request $request, $id)
         $project->status = $request->input('status');
     }
     $project->save();
-    return response()->json($project, 200);
+    return response()->json(['errors' => $project->errors()], 422);
 }
 public function delete($id)
-{
+{ 
     $project = Project::find($id);
-
     if (!$project) {
         return response()->json(['error' => 'Project not found'], 404);
     }
