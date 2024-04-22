@@ -58,6 +58,7 @@ public function add(Request $request)
     $project->end_date = $request->input('end_date');
     $project->type = $request->input('type');
     $project->attachment = $request->input('attachment');
+    
     $project->status = $request->input('status');
     $project->description = $request->input('description');
     $project->user_id = $user->id;
