@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+<<<<<<< HEAD
+=======
+use App\Models\Roles;
+>>>>>>> daniyal
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -151,8 +155,56 @@ class UserController extends Controller
         return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
     }
 
+<<<<<<< HEAD
+=======
+    public function add_client(Request $request){
+        $role = Roles::where('name', 'client')->first();
+        $rules = [
+            'username' => 'required|string|unique:users',
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'about' => 'required|string',
+            'gender' => 'nullable|in:M,F,O',
+            'email' => 'required|string|email|unique:users',
+            'phone' => 'required|string|max:15|unique:users',
+            'password' => 'required|string|min:8', 
+        ];
+    
+        $validator = Validator::make($request->all(), $rules);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        try {
+            $user = User::create([
+                'username' => $request->input('username'),
+                'fname' => $request->input('fname'),
+                'lname' => $request->input('lname'),
+                'about' => $request->input('about'),
+                'gender' => $request->input('gender'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'role_id' => $role->id,
+                'password' => Hash::make($request->input('password')),
+            ]);
+    
+            return response()->json([
+                'message' => 'Client added successfully',
+                'user' => $user
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+        }
+    }
+    
+>>>>>>> daniyal
 
 
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> daniyal
