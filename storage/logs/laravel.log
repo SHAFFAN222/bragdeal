@@ -6785,3 +6785,11 @@
 #35 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\xampp\\\\htdocs...')
 #36 {main}
 "} 
+[2024-04-22 16:38:34] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\xampp\\htdocs\\bragdeal\\app\\Models\\User.php:21)
+[stacktrace]
+#0 {main}
+"} 
+[2024-04-22 16:39:33] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\xampp\\htdocs\\bragdeal\\app\\Models\\User.php:21)
+[stacktrace]
+#0 {main}
+"} 
