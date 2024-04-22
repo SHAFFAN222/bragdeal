@@ -24,16 +24,17 @@ Route::group(['prefix' => 'superadmin'], function () {
     });
 
     // projects
-Route::group(['prefix' => 'projects'], function () {
-Route::get('/get', [ProjectController::class, 'get_projects']);        
-Route::get('/get/{id}', [ProjectController::class, 'get']);
-Route::get('/getbyuser/{user_id}', [ProjectController::class, 'getbyuser']);
-Route::get('/edit/{id}', [ProjectController::class, 'edit']);
-Route::get('/delete/{id}', [ProjectController::class, 'delete']);
-Route::post('/add', [ProjectController::class, 'add']);
-Route::post('/update/{id}', [ProjectController::class, 'update']);
-
-        });
+    
+    Route::group(['prefix' => 'projects', 'middleware' => 'api'], function () {
+      Route::get('/get', [ProjectController::class, 'get_projects']);        
+      Route::get('/get/{id}', [ProjectController::class, 'get']);
+      Route::get('/getbyuser/{user_id}', [ProjectController::class, 'getbyuser']);
+      Route::get('/edit/{id}', [ProjectController::class, 'edit']);
+      Route::get('/delete/{id}', [ProjectController::class, 'delete']);
+      Route::post('/add', [ProjectController::class, 'add']);
+      Route::post('/update/{id}', [ProjectController::class, 'update']);
+  });
+  
     
 
 });
