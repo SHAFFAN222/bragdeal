@@ -34,11 +34,13 @@ public function add(Request $request)
     $rules = [
         'user_id' => 'required|integer', // Assuming user_id is an integer
         'title' => 'required|string', // Assuming title is a string
-        // 'start_date' => 'date',
-        // 'end_date' => 'date|after_or_equal:start_date', // Ensuring end_date is after or equal to start_date
-        'type' => 'required|string', // Assuming type is a string
+        
+        'start_date' => 'date',
+        'end_date' => 'date|after_or_equal:start_date', // Ensuring end_date is after or equal to start_date
+        'type' => 'required|file', // Assuming type is a string
         'attachment' => 'required|string', // Assuming attachment is a string (file path or URL)
-        'status' => 'required|in:active,inactive'
+        'status' => 'required|in:active,inactive',
+        
     ];
 
     // Validate the request
