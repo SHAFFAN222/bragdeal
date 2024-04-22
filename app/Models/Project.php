@@ -21,5 +21,17 @@ class Project extends Model
        
     ];
     public $timestamps = false;
-    
+  
+    public function getAttachmentUrlAttribute()
+    {
+        if ($this->attachment) {
+            // Assuming $baseUrl is the base URL where attachments are stored
+            $baseUrl = url('/');
+            
+            // Return the complete URL for the attachment
+            return $baseUrl.'/'. $this->attachment;
+        }
+        
+        return null;
+    }
 }
