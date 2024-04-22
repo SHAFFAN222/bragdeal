@@ -7,31 +7,30 @@ use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
-
     public function get_projects()
     
     {    
         $projects = Project::get();
-      return response()->json($projects);
+        return response()->json(['message' => 'Get  Project Successfully'], 200);
 
     }
     public function get($id)
     
     {    
       $project = Project::where('id',$id)->first();  
-     return response()->json(['errors' => $project->errors()], 422);
+      return response()->json(['message' => 'Get id Successfully'], 200);
     }
 public function getbyuser(Request $request,$user_id) {
    
     $project = Project::where('user_id',$user_id)->get();
     // dd($project); 
-    return response()->json($project);
+    return response()->json(['message' => 'Get  user Successfully'], 200);
     // return response()->json(['errors' => $project->errors()], 422);
 }
     
 public function add(Request $request)
 {
-
+  
     $rules = [
         'user_id' => 'required|integer', // Assuming user_id is an integer
         'title' => 'required|string', // Assuming title is a string
@@ -44,10 +43,8 @@ public function add(Request $request)
 
     // Validate the request
     $validator = Validator::make($request->all(), $rules);
-
     // dd($validator);
-
-    if ($validator->fails()) {
+     if ($validator->fails()) {
      
         return response()->json(['errors' => $validator->errors()], 422);
     }
@@ -62,7 +59,7 @@ public function add(Request $request)
 
     $project->save();
 
-    return response()->json(['errors' => $project->errors()], 422);
+    return response()->json(['message' => 'Create Project Successfully'], 200);
 }
 public function update(Request $request , $id)
 {
@@ -110,7 +107,7 @@ public function update(Request $request , $id)
         $project->status = $request->input('status');
     }
     $project->save();
-    return response()->json(['errors' => $project->errors()], 422);
+    return response()->json(['message' => 'Update Project Successfully'], 200);
 }
 public function delete($id)
 { 
