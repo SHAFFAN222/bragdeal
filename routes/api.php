@@ -7,7 +7,8 @@ use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use App\Http\Controllers\ProjectController;
 Route::post('/signup', [MainController::class, 'signup']);
 Route::post('/login', [MainController::class, 'login']);
-Route::group(['prefix' => 'superadmin'], function () {
+Route::middleware('auth:sanctum')->get('/doshboard', function (Request $request) {
+  Route::group(['prefix' => 'superadmin'], function () {
    
     Route::get('/dashboard', [MainController::class, 'dashboard']);
     Route::get('/logout', [MainController::class, 'logout']);
@@ -37,4 +38,6 @@ Route::group(['prefix' => 'superadmin'], function () {
   
     
 
+});
+  return $request->user();
 });
