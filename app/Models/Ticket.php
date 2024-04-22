@@ -27,6 +27,19 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getAttachmentUrlAttribute()
+    {
+        if ($this->attachment) {
+            // Assuming $baseUrl is the base URL where attachments are stored
+            $baseUrl = url('/');
+            
+            // Return the complete URL for the attachment
+            return $baseUrl.'/'. $this->attachment;
+        }
+        
+        return null;
+    }
+
     // Additional methods or attributes can be defined here
 }
 

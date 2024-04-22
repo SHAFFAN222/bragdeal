@@ -17,7 +17,7 @@ class TicketController extends Controller
     {
         // Get the currently authenticated user
         $user = Auth::user();
-
+    
         // Validate the request data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -27,7 +27,7 @@ class TicketController extends Controller
             'department' => 'required|string|max:255',
             'priority' => 'required|string|max:50',
         ]);
-
+    
         // Create a new Ticket instance and assign the validated data
         $ticket = new Ticket([
             'title' => $validatedData['title'],
@@ -37,19 +37,25 @@ class TicketController extends Controller
             'department' => $validatedData['department'],
             'priority' => $validatedData['priority'],
         ]);
-
+    
         // Associate the ticket with the user by setting the user_id
         $ticket->user_id = $user->id;
-
+    
         // Save the new ticket instance
         $ticket->save();
-
+    
+        // Add the dynamic image URL to the ticket
+        if ($ticket->attachment) {
+            $ticket->attachment = url('storage/' . $ticket->attachment); // Assuming attachments are stored in the 'storage' directory
+        }
+    
         // Return a JSON response indicating success and the new ticket data
         return response()->json([
             'message' => 'Ticket added successfully',
             'data' => $ticket
         ], 200);
     }
+    
 
     //update a ticket
     public function update_ticket(Request $request)
@@ -58,7 +64,7 @@ class TicketController extends Controller
         $user = Auth::user();
 
         // Find the ticket that belongs to the authenticated user
-        $ticket = Ticket::where('user_id', $user->id)->first();
+        $ticket = Ticket::find($request->id);
 
         // If no ticket is found, return a 404 response
         if (!$ticket) {
@@ -106,6 +112,10 @@ class TicketController extends Controller
         // Save the updated ticket to the database
         $ticket->save();
 
+            // Add the dynamic image URL to the ticket
+            if ($ticket->attachment) {
+                $ticket->attachment = url('storage/' . $ticket->attachment); // Assuming attachments are stored in the 'storage' directory
+            }
         // Return the updated ticket as a JSON response
         return response()->json([
             'message' => 'Ticket updated successfully',
@@ -119,6 +129,12 @@ class TicketController extends Controller
         $user = Auth::user();
 
         $tickets = Ticket::where('user_id', $user->id)->get();
+        // Add the dynamic image URL to each ticket
+        $tickets->transform(function ($ticket) {
+         $ticket->attachment = $ticket->attachment_url;
+                 return $ticket;
+        });
+
 
         if ($tickets->isEmpty()) {
             return response()->json(['message' => 'No tickets found for the specified user ID'], 404);
@@ -131,31 +147,39 @@ class TicketController extends Controller
     }
 
     // get by ticket id
-    public function get_ticket($id){
-        $ticket = Ticket::find($id);
+    public function get_ticket($id)
+    {
+        $tickets = Ticket::find($id);
+        $tickets->attachment = $tickets->attachment_url;
+        
 
-        if (!$ticket) {
+        if (!$tickets) {
             return response()->json(['message' => 'Ticket not found'], 404);
         }
 
         return response()->json([
             'message' => 'Ticket retrieved successfully',
-            'data' => $ticket,
+            'data' => $tickets,
         ], 200);
     }
 
     // get all tickets
-    public function get_all_tickets(){
+    public function get_all_tickets()
+    {
         $tickets = Ticket::all();
+        $tickets->transform(function ($ticket) {
+            $ticket->attachment = $ticket->attachment_url;
+                    return $ticket;
+           });
 
         if ($tickets->isEmpty()) {
             return response()->json(['message' => 'No tickets found'], 404);
         }
-
+        
         return response()->json([
             'message' => 'Tickets retrieved successfully',
             'data' => $tickets,
         ], 200);
     }
- 
+
 }
