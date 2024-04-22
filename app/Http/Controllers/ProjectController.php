@@ -37,7 +37,7 @@ public function getbyuser(Request $request) {
 public function add(Request $request)
 {
     $user = Auth::user();
-    //    dd($user->id);
+       dd($user->id);
     $rules = [
         
         // Assuming user_id is an integer
