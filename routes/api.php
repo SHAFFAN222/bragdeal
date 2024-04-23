@@ -38,7 +38,20 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::post('/update/{id}', [ProjectController::class, 'update']);
         
                 });
-        
+           // projects
+            
+           Route::group(['prefix' => 'Guides '], function () {
+          
+            Route::get('/get', [GuidesController::class, 'get_Guides']);        
+            Route::get('/get/{id}', [GuidesController::class, 'getById']);
+            // Route::get('/edit/{id}', [GuidesController::class, 'edit']);
+            Route::get('/delete/{id}', [GuidesController::class, 'delete']);
+            Route::post('/add', [GuidesController::class, 'add']);
+            Route::post('/update/{id}', [GuidesController::class, 'update']);
+            
+                    });
+            
+               
            
         });
         
