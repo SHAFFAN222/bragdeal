@@ -33,11 +33,10 @@ class ArticleController extends Controller
     public function add(Request $request)
 {
    
-    $user = Auth::user(); // Assuming Auth::author() retrieves the authenticated user
+    $user = Auth::user(); 
 
     $rules = [
         'title' => 'required|string',
-        // 'content' => 'required|string',
         'publication_date' => 'required|date',
         'external_url' => 'required|string',
         'like_count' => 'required|integer',
@@ -68,28 +67,17 @@ class ArticleController extends Controller
         $imagePath = $request->file('image')->store('images');
         $article->image = $imagePath;
     }
-
-    // Assign author ID
     $article->author_id = $user->id;
-
-    // Save the article
     $article->save();
-    
     return response()->json(['message' => 'article created successfully', 'data' => $article], 200);
-}
-
-    
+}   
     public function update(Request $request)
     {
-        // var_dump('update');die();
-        // Find the article that belongs to the authenticated user
         $article = article::find($request->id);
         if (!$article) {
             return response()->json(['error' => 'article not found'], 404);
         }
-    
-        // Validation rules
-        $rules = [
+            $rules = [
             'title' => 'required|string',
             'publication_date' => 'required|date',
             'external_url' => 'required|string',
@@ -97,17 +85,13 @@ class ArticleController extends Controller
             'comment' => 'required|string',
             'image' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048',
         ];
-    
-        // Validate the request
         $validator = Validator::make($request->all(), $rules);
-    
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
         if ($request->has('title')) {
             $article->title = $request->input('title');
         }
-     
         if ($request->has('publication_date')) {
             $article->publication_date = $request->input('publication_date');
         }
@@ -124,11 +108,7 @@ class ArticleController extends Controller
             $imagePath = $request->file('image')->store('images');
             $article->image = $imagePath;
         }
-        // Save the updated article
         $article->save();
-            
-      
-        // Return success response
         return response()->json(['message' =>'article updated successfully' ,'data' => $article], 200);
     }
     
@@ -142,6 +122,6 @@ class ArticleController extends Controller
 
         $article->delete();
 
-        return response()->json(['message' => 'article deleted successfully'], 200);
+        return response()->json(['message' => 'article deleted successfully','data' => $article], 200);
     }
 }
