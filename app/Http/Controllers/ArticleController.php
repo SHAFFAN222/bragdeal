@@ -42,6 +42,7 @@ class ArticleController extends Controller
         'like_count' => 'required|integer',
         'comment' => 'required|string',
         'image' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048',
+        'category' => 'required|string', 
     ];
 
     // Validate the request
@@ -68,6 +69,7 @@ class ArticleController extends Controller
         $article->image = $imagePath;
     }
     $article->author_id = $user->id;
+    $article->category = $request->input('category'); 
     $article->save();
     return response()->json(['message' => 'article created successfully', 'data' => $article], 200);
 }   

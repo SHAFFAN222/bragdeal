@@ -19,10 +19,7 @@ class Article extends Model
         'like_count',
         'comment',
         'image',
-        
-        
-     
-       
+        'category',
     ];
     public $timestamps = false;
   
