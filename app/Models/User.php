@@ -33,6 +33,11 @@ class User extends Authenticatable
         'role_id',
     ];
 
+    public function meta()
+    {
+        return $this->hasMany(UserMeta::class);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

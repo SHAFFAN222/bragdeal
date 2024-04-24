@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\ArticleController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 
@@ -50,11 +51,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/delete/{id}', [UserController::class, 'delete_client']);
     Route::get('/get_client/{id}', [UserController::class, 'get_client']);
     Route::get('/get_all_clients', [UserController::class, 'get_all_clients']);
+    Route::get('/get_client_detail', [UserController::class, 'get_client_detail']);
+    
+
+
 
     // client add
 
   });
-
 
 
 });

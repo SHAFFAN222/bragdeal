@@ -304,7 +304,25 @@ class UserController extends Controller
         ], 200);
     }
 
+// get client details
+public function get_client_detail(Request $request)
+{
+    try {
+        // Get the authenticated user
+        $user = Auth::user();
 
+        // Load the meta data associated with the user
+        $user->load('meta');
+
+        // Return the user details along with meta information
+        return response()->json([
+            'user' => $user
+        ], 200);
+    } catch (\Exception $e) {
+        // Return error response if an exception occurs
+        return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+    }
+}
 
 
 
