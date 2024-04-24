@@ -5,25 +5,38 @@ use App\Http\Controllers\UserController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ArticleController;
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
+
+
 Route::middleware('auth:sanctum')->group( function () {
       
           Route::group(['prefix' => 'superadmin'], function () {
    
             Route::get('/dashboard', [UserController::class, 'dashboard']);
             Route::get('/logout', [UserController::class, 'logout']);
+          
+            // article routes
+              Route::group(['prefix' => 'article'], function () {
+                Route::get('/get', [ArticleController::class, 'get']);
+             Route::get('/get{id}', [ArticleController::class, 'getById']);
+             Route::get('/delete/{id}', [ArticleController::class, 'delete']);
+             Route::post('/create', [ArticleController::class, 'create']);
+             Route::post('/update/{id}', [ArticleController::class, 'update']);
+                });
+              
+          
             // user
             Route::group(['prefix' => 'user'], function () {
             Route::post('/update', [UserController::class, 'update']);
             });
             
             // Tickets
-            
-            Route::group(['prefix' => 'user'], function () {
-                Route::post('/update', [UserController::class, 'update']);
+            // Route::group(['prefix' => 'user'], function () {
+            //     Route::post('/update', [UserController::class, 'update']);
               
-            });
+            // });
         
             // projects
             
@@ -38,22 +51,12 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::post('/update/{id}', [ProjectController::class, 'update']);
         
                 });
-           // projects
+        
             
-           Route::group(['prefix' => 'Guides '], function () {
-          
-            Route::get('/get', [GuidesController::class, 'get_Guides']);        
-            Route::get('/get/{id}', [GuidesController::class, 'getById']);
-            // Route::get('/edit/{id}', [GuidesController::class, 'edit']);
-            Route::get('/delete/{id}', [GuidesController::class, 'delete']);
-            Route::post('/add', [GuidesController::class, 'add']);
-            Route::post('/update/{id}', [GuidesController::class, 'update']);
-            
-                    });
-            
-               
            
-        });
+          
+     });
+
         
 
 });
