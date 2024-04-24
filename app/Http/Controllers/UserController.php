@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Models\Roles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -18,6 +20,7 @@ class UserController extends Controller
      */
     public function signup(Request $request)
     {
+
         $rules = [
             'username' => 'required|string|unique:users',
             'fname' => 'required|string',
@@ -49,6 +52,9 @@ class UserController extends Controller
                 'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
             ]);
+
+
+
 
             return response()->json([
                 'message' => 'User registered successfully',
@@ -150,6 +156,154 @@ class UserController extends Controller
         $user = User::where('id', $user->id)->first();
         return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
     }
+
+    public function add_client(Request $request)
+    {
+
+        $role = Roles::where('name', 'client')->first();
+
+        $rules = [
+            'username' => 'required|string|unique:users',
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'about' => 'required|string',
+            'gender' => 'nullable|in:M,F,O',
+            'email' => 'required|string|email|unique:users',
+            'phone' => 'required|string|max:15|unique:users',
+            'password' => 'required|string|min:8',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            $user = User::create([
+                'username' => $request->input('username'),
+                'fname' => $request->input('fname'),
+                'lname' => $request->input('lname'),
+                'about' => $request->input('about'),
+                'gender' => $request->input('gender'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'role_id' => $role->id,
+                'password' => Hash::make($request->input('password')),
+            ]);
+
+            if ($request->has('meta')) {
+                foreach ($request->input('meta') as $key => $value) {
+                    DB::table('users_meta')->insert([
+                        'user_id' => $user->id,
+                        'meta_key' => $key,
+                        'meta_value' => $value,
+                    ]);
+                }
+            }
+            return response()->json([
+                'message' => 'Client added successfully',
+                'user' => $user
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function update_client(Request $request)
+    {
+        // Get the authenticated user's ID
+        $authUserId = Auth::id();
+
+        $role = Roles::where('name', 'client')->first();
+
+        // Modify validation rules to exclude the current user's username and email
+        $rules = [
+            'username' => 'required|string|unique:users,username,' . $authUserId,
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'about' => 'required|string',
+            'gender' => 'nullable|in:M,F,O',
+            'email' => 'required|string|email|unique:users,email,' . $authUserId,
+            'phone' => 'required|string|max:15|unique:users,phone,' . $authUserId,
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            $user = User::findOrFail($authUserId);
+
+            $user->update([
+                'username' => $request->input('username'),
+                'fname' => $request->input('fname'),
+                'lname' => $request->input('lname'),
+                'about' => $request->input('about'),
+                'gender' => $request->input('gender'),
+                'email' => $request->input('email'),
+                'phone' => $request->input('phone'),
+                'role_id' => $role->id,
+            ]);
+
+            if ($request->has('meta')) {
+                foreach ($request->input('meta') as $key => $value) {
+                    DB::table('users_meta')
+                        ->updateOrInsert(
+                            ['user_id' => $user->id, 'meta_key' => $key],
+                            ['meta_value' => $value]
+                        );
+                }
+            }
+
+            return response()->json([
+                'message' => 'Client updated successfully',
+                'user' => $user
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+        }
+    }
+
+    //    delete client
+
+    public function delete_client($id)
+    {
+        try {
+            // Find the client by ID and delete it
+            $client = User::findOrFail($id);
+            $client->delete();
+    
+            return response()->json([
+                'message' => 'Client deleted successfully',
+                'client' => $client
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+        }
+    }
+
+// get_all_clients
+    public function get_all_clients()
+    {
+        $clients = User::where('role_id', 2)->get();
+        return response()->json([
+            'clients' => $clients
+        ], 200);
+    }
+
+    // get_client by id
+
+    public function get_client($id)
+    {
+        $client = User::where('id', $id)->first();
+        return response()->json([
+            'client' => $client
+        ], 200);
+    }
+
 
 
 
