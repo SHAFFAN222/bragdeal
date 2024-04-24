@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
 class Article extends Model
 {
     use HasFactory;
@@ -13,7 +13,6 @@ class Article extends Model
         
         'author_id',
         'title',
-        'conent',
         'publication_date',
         'status',
         'external_url',
@@ -27,14 +26,14 @@ class Article extends Model
     ];
     public $timestamps = false;
   
-    public function getAttachmentUrlAttribute()
+    public function getimageUrlAttribute()
     {
-        if ($this->attachment) {
-            // Assuming $baseUrl is the base URL where attachments are stored
+        if ($this->image) {
+            // Assuming $baseUrl is the base URL where images are stored
             $baseUrl = url('/');
             
-            // Return the complete URL for the attachment
-            return $baseUrl.'/'. $this->attachment;
+            // Return the complete URL for the image
+            return $baseUrl.'/'. $this->image;
         }
         
         return null;

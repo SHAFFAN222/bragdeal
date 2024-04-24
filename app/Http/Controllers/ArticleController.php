@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Article;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 class ArticleController extends Controller
 {
    
     public function get()
     
-    {    
-
-       
+    {  
         $articles  = Article::get();
-        $articles ->transform(function ($articles ) {
-         
+        $articles ->transform(function ($articles ) { 
+            $articles->image = $articles->image_url;
+            return $articles; 
            });
         return response()->json(['message' => 'Get  article Successfully','data' => $articles ], 200);
 
@@ -32,11 +32,12 @@ class ArticleController extends Controller
 
     public function add(Request $request)
 {
-    $author = Auth::author(); // Assuming Auth::author() retrieves the authenticated user
+   
+    $user = Auth::user(); // Assuming Auth::author() retrieves the authenticated user
 
     $rules = [
         'title' => 'required|string',
-        'content' => 'required|string',
+        // 'content' => 'required|string',
         'publication_date' => 'required|date',
         'external_url' => 'required|string',
         'like_count' => 'required|integer',
@@ -54,9 +55,9 @@ class ArticleController extends Controller
     // Create a new article instance
     $article = new Article();
 
-    // Assign values from the request
+
     $article->title = $request->input('title');
-    $article->content = $request->input('content');
+  
     $article->publication_date = $request->input('publication_date');
     $article->external_url = $request->input('external_url');
     $article->like_count = $request->input('like_count');
@@ -69,7 +70,7 @@ class ArticleController extends Controller
     }
 
     // Assign author ID
-    $article->author_id = $author->id;
+    $article->author_id = $user->id;
 
     // Save the article
     $article->save();
@@ -80,6 +81,7 @@ class ArticleController extends Controller
     
     public function update(Request $request)
     {
+        // var_dump('update');die();
         // Find the article that belongs to the authenticated user
         $article = article::find($request->id);
         if (!$article) {
@@ -89,7 +91,6 @@ class ArticleController extends Controller
         // Validation rules
         $rules = [
             'title' => 'required|string',
-            'content' => 'required|string',
             'publication_date' => 'required|date',
             'external_url' => 'required|string',
             'like_count' => 'required|integer',
@@ -106,10 +107,7 @@ class ArticleController extends Controller
         if ($request->has('title')) {
             $article->title = $request->input('title');
         }
-        // Update article fields if they exist in the request
-        if ($request->has('content')) {
-            $article->content = $request->input('content');
-        }
+     
         if ($request->has('publication_date')) {
             $article->publication_date = $request->input('publication_date');
         }
@@ -122,13 +120,6 @@ class ArticleController extends Controller
         if ($request->has('comment')) {
             $article->comment = $request->input('comment');
         }
-        if ($request->hasFile('image')) {
-            $article->image = $request->file('image')->store('image');
-        }
-
-
-
-
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images');
             $article->image = $imagePath;
