@@ -6,6 +6,7 @@ use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\InvoiceController;
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
 
@@ -26,7 +27,14 @@ Route::middleware('auth:sanctum')->group( function () {
              Route::post('/update/{id}', [ArticleController::class, 'update']);
                 });
               
-          
+        Route::group(['prefix' => 'invoice'], function(){
+            Route::get('/get', [InvoiceController::class, 'get']);
+            Route::get('/get/{id}', [InvoiceController::class, 'getById']);
+            Route::get('/delete/{id}', [InvoiceController::class, 'delete']);
+            Route::post('/create', [InvoiceController::class, 'add']);
+            Route::post('/update/{id}', [InvoiceController::class, 'update']);
+            
+        });
             // user
             Route::group(['prefix' => 'user'], function () {
             Route::post('/update', [UserController::class, 'update']);
