@@ -32,25 +32,46 @@ Route::middleware('auth:sanctum')->group( function () {
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\InvoiceController;
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
+
+
 Route::middleware('auth:sanctum')->group( function () {
       
           Route::group(['prefix' => 'superadmin'], function () {
    
             Route::get('/dashboard', [UserController::class, 'dashboard']);
             Route::get('/logout', [UserController::class, 'logout']);
+          
+            // article routes
+              Route::group(['prefix' => 'article'], function () {
+                Route::get('/get', [ArticleController::class, 'get']);
+             Route::get('/get/{id}', [ArticleController::class, 'getById']);
+             Route::get('/delete/{id}', [ArticleController::class, 'delete']);
+             Route::post('/create', [ArticleController::class, 'add']);
+             Route::post('/update/{id}', [ArticleController::class, 'update']);
+                });
+              
+        Route::group(['prefix' => 'invoice'], function(){
+            Route::get('/get', [InvoiceController::class, 'get']);
+            Route::get('/get/{id}', [InvoiceController::class, 'getById']);
+            Route::get('/delete/{id}', [InvoiceController::class, 'delete']);
+            Route::post('/create', [InvoiceController::class, 'add']);
+            Route::post('/update/{id}', [InvoiceController::class, 'update']);
+            
+        });
             // user
             Route::group(['prefix' => 'user'], function () {
             Route::post('/update', [UserController::class, 'update']);
             });
             
             // Tickets
-            
-            Route::group(['prefix' => 'user'], function () {
-                Route::post('/update', [UserController::class, 'update']);
+            // Route::group(['prefix' => 'user'], function () {
+            //     Route::post('/update', [UserController::class, 'update']);
               
-            });
+            // });
         
             // projects
             
@@ -66,8 +87,11 @@ Route::middleware('auth:sanctum')->group( function () {
         
                 });
         
+            
            
-        });
+          
+     });
+
         
 >>>>>>> daniyal
 

@@ -72,6 +72,7 @@ public function add(Request $request)
      }
     return response()->json(['message' => 'Create Project Successfully','data' => $project], 200);
 }
+
 public function update(Request $request)
 {
     // Find the project that belongs to the authenticated user
