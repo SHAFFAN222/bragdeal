@@ -86,6 +86,7 @@ class ArticleController extends Controller
             'like_count' => 'required|integer',
             'comment' => 'required|string',
             'image' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048',
+            'category' => 'required|string',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -109,6 +110,9 @@ class ArticleController extends Controller
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images');
             $article->image = $imagePath;
+        }
+        if ($request->has('category')) {
+            $article->category = $request->input('category');
         }
         $article->save();
         return response()->json(['message' =>'article updated successfully' ,'data' => $article], 200);
