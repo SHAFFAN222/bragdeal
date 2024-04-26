@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/logout', [UserController::class, 'logout']);
           
                 // -------------------------------- article routes --------------------------------
-              Route::group(['prefix' => 'article'], function () {
+             Route::group(['prefix' => 'article'], function () {
              Route::get('/get', [ArticleController::class, 'get']);
              Route::get('/get/{id}', [ArticleController::class, 'getById']);
              Route::get('/delete/{id}', [ArticleController::class, 'delete']);
@@ -38,17 +38,18 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::post('/update/{id}', [InvoiceController::class, 'update']);         
         });
                // -------------------------------- projects routes --------------------------------
-               Route::group(['prefix' => 'projects'], function () {
-                Route::get('/get', [ProjectController::class, 'get_projects']);        
-                Route::get('/get/{id}', [ProjectController::class, 'get']);
-                Route::get('/getbyuser', [ProjectController::class, 'getbyuser']);
-                Route::get('/edit/{id}', [ProjectController::class, 'edit']);
-                Route::get('/delete/{id}', [ProjectController::class, 'delete']);
-                Route::post('/add', [ProjectController::class, 'add']);
-                Route::post('/update/{id}', [ProjectController::class, 'update']);
+            
+        Route::group(['prefix' => 'projects'], function () {
+                    Route::get('/get', [ProjectController::class, 'get_projects']);        
+                    Route::get('/get/{id}', [ProjectController::class, 'get']);
+                    Route::get('/getbyuser', [ProjectController::class, 'getbyuser']);
+                    Route::get('/edit/{id}', [ProjectController::class, 'edit']);
+                    Route::get('/delete/{id}', [ProjectController::class, 'delete']);
+                    Route::post('/add', [ProjectController::class, 'add']);
+                    Route::post('/update/{id}', [ProjectController::class, 'update']);
                         });
                         // -------------------------------- Settings  routes -------------------------------
-                        Route::group(['prefix' => 'portal_settings'], function () {
+            Route::group(['prefix' => 'portal_settings'], function () {
                             Route::get('/get', [Portal_settingsController::class, 'get']);
                             Route::get('/get/{id}', [Portal_settingsController::class, 'getById']);
                             // Route::get('/getbyuser', [Portal_settingsController::class, 'getbyuser']);
