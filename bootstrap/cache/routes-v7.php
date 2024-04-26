@@ -7,9 +7,9 @@
 |
 | Here we will decode and unserialize the RouteCollection instance that
 | holds all of the route information for an application. This allows
-| us to instantaneously load the entire route map into the router.
+| us to instantaneously load the entire route map into the router .
 |
-*/
+*/ 
 
 app('router')->setCompiledRoutes(
     array (
