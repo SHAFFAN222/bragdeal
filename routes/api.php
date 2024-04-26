@@ -61,4 +61,5 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::group(['prefix' => 'user'], function () {
             Route::post('/update', [UserController::class, 'update']);
             });
-     });});
+     });
+    });
