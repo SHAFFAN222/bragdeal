@@ -2,10 +2,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-<<<<<<< HEAD
+
 use App\Http\Controllers\TicketController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
+use Laravel\Sanctum\Http\Middleware\CheckAbilities;
+use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\InvoiceController;
 
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
@@ -28,12 +33,8 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/get_user_ticket', [TicketController::class, 'get_user_ticket']);
             Route::get('/get_ticket/{ticketId}', [TicketController::class, 'get_ticket']);
             Route::get('/get_all_tickets', [TicketController::class, 'get_all_tickets']);
-=======
-use Laravel\Sanctum\Http\Middleware\CheckAbilities;
-use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\InvoiceController;
+
+
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
 
@@ -93,7 +94,7 @@ Route::middleware('auth:sanctum')->group( function () {
      });
 
         
->>>>>>> daniyal
+
 
 
 
