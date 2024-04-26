@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/logout', [UserController::class, 'logout']);
           
                 // -------------------------------- article routes --------------------------------
-             Route::group(['prefix' => 'article'], function () {
+          Route::group(['prefix' => 'article'], function () {
              Route::get('/get', [ArticleController::class, 'get']);
              Route::get('/get/{id}', [ArticleController::class, 'getById']);
              Route::get('/delete/{id}', [ArticleController::class, 'delete']);
