@@ -19,8 +19,6 @@ class portal_settings extends Model
         'color_scheme',
         'logo',
     ];
-
-
     public function getlogoUrlAttribute()
     {
         if ($this->logo) {
