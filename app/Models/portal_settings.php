@@ -22,7 +22,6 @@ class portal_settings extends Model
     public function getlogoUrlAttribute()
     {
         if ($this->logo) {
-            // Assuming $baseUrl is the base URL where logos are stored
             $baseUrl = url('/');
             
             // Return the complete URL for the logo
