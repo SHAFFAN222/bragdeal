@@ -10,7 +10,6 @@ class Portal_settingsController extends Controller
 {
     public function get()
     {    
-        // var_dump('setting');die();
          $portal_settingss = portal_settings::get();
          $portal_settingss->transform(function ($portal_settingss) {
          $portal_settingss->logo = $portal_settingss->logo_url;
