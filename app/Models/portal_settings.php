@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class portal_settings extends Model
 {
     use HasFactory;
     protected $table = 'portal_settings';
+    //public function getTable()
     protected $fillable = [
+        // public function get implements
         'user_id',
         'title',
         'email',

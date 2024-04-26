@@ -6,11 +6,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Portal_settings;
-
 class Portal_settingsController extends Controller
 {
     public function get()
-    
     {    
         // var_dump('setting');die();
          $portal_settingss = portal_settings::get();
@@ -19,7 +17,6 @@ class Portal_settingsController extends Controller
                     return $portal_settingss;
            });
         return response()->json(['message' => 'Get  portal_settings Successfully','data' => $portal_settingss], 200);
-
     }
     public function getById($id)
     {    
@@ -35,11 +32,8 @@ class Portal_settingsController extends Controller
     
 public function add(Request $request)
 {
-    
     $user = Auth::user();
-      
-    $rules = [
-        
+    $rules = [       
         // Assuming user_id is an integer
         'title' => 'required|string', // Assuming title is a string
         'email' => 'required', // Assuming email is a string
@@ -47,29 +41,24 @@ public function add(Request $request)
         'address' => 'required|string', // Assuming address is a string
         'color_scheme' => 'required|string', // Ensuring color scheme is a string
         'logo' => 'nullable|file|mimes:jpg,gif,jpeg,png,|max:2048', // File validation rules
-     
-       
     ];
 
     // Validate the request
-    $validator = Validator::make($request->all(), $rules);
-    // dd($validator);
-     if ($validator->fails()) {
-     
-        return response()->json(['errors' => $validator->errors()], 422);
+    $validator = Validator::make($request->all(), $rules); 
+     if ($validator->fails()) { // If validation  
+        return response()->json(['errors' => $validator->errors()], 422); // Return false
     }
-    $portal_settings = new portal_settings();
-    // $portal_settings->user_id = $request->input('user_id');
-    $portal_settings->title = $request->input('title');
-  $portal_settings->email = $request->input('email');
-  $portal_settings->phone = $request->input('phone');
-  $portal_settings->address = $request->input('address');
-  $portal_settings->color_scheme = $request->input('color_scheme');
-  $portal_settings->logo = $request->input('logo');
-  if ($request->hasFile('logo')) {
-    $logo = $request->file('logo');
+  $portal_settings = new portal_settings();  
+  $portal_settings->title = $request->input('title'); // Title
+  $portal_settings->email = $request->input('email'); // Email
+  $portal_settings->phone = $request->input('phone'); // Number
+  $portal_settings->address = $request->input('address'); // Address
+  $portal_settings->color_scheme = $request->input('color_scheme'); // Color scheme 
+  $portal_settings->logo = $request->input('logo'); // Logo
+  if ($request->hasFile('logo')) { // File
+    $logo = $request->file('logo'); 
     $logoPath = $logo->store('logos'); // Store the file
-    $portal_settings->logo = $logoPath;
+    $portal_settings->logo = $logoPath;  
 }
 
     $portal_settings->user_id = $user->id;
@@ -88,7 +77,7 @@ public function update(Request $request)
 
     // Validation rules
     $rules = [
-        'title' => 'sometimes|required|string',
+        'title' => 'sometimes|required|string', // 
         'email' => 'required', // Assuming email is a string
         'phone' => ' required', // Assuming phone is a string
         'address' => 'required|string', // Assuming address is a string
