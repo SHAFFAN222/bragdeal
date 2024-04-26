@@ -14,6 +14,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group( function () {
       
+                // ----------------------------------- super admin routes --------------------------
           Route::group(['prefix' => 'superadmin'], function () {
    
             Route::get('/dashboard', [UserController::class, 'dashboard']);
@@ -66,12 +67,6 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::group(['prefix' => 'user'], function () {
             Route::post('/update', [UserController::class, 'update']);
             });
-            
-            // Tickets
-            // Route::group(['prefix' => 'user'], function () {
-            //     Route::post('/update', [UserController::class, 'update']);
-              
-            // });
          
      });
 
