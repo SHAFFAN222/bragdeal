@@ -51,7 +51,7 @@ Route::middleware('auth:sanctum')->group( function () {
                 Route::post('/update/{id}', [ProjectController::class, 'update']);
                 
                         });
-                        // -------------------------------- Settings  routes --------------------------------
+                        // -------------------------------- Settings  routes -------------------------------
                 
                         Route::group(['prefix' => 'portal_settings'], function () {
                             Route::get('/get', [Portal_settingsController::class, 'get']);
