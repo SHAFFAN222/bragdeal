@@ -8,7 +8,7 @@ use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\InvoiceController;
-
+use App\Http\Controllers\Portal_settingsController;
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
 
