@@ -21,17 +21,6 @@ class User extends Authenticatable
     protected $tabel = 'users';
 
     protected $fillable = [
-<<<<<<< HEAD
-        
-         'username', 
-         'fname', 
-         'lname', 
-         'about',
-         'gender', 
-         'email',  
-         'phone',
-         'password', 
-=======
         'username',
         'fname',
         'lname',
@@ -40,7 +29,6 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
->>>>>>> daniyal
     ];
 
     public function meta()

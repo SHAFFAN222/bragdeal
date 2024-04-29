@@ -16241,3 +16241,11 @@
 [stacktrace]
 #0 {main}
 "} 
+[2024-04-29 12:26:38] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\xampp\\htdocs\\bragdeal\\app\\Models\\User.php:24)
+[stacktrace]
+#0 {main}
+"} 
+[2024-04-29 12:27:37] local.ERROR: syntax error, unexpected token "<<", expecting "]" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"<<\", expecting \"]\" at D:\\xampp\\htdocs\\bragdeal\\app\\Models\\User.php:24)
+[stacktrace]
+#0 {main}
+"} 
