@@ -1,5 +1,4 @@
 <?php
- 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -47,7 +46,7 @@ public function add(Request $request)
      if ($validator->fails()) { // If validation  
         return response()->json(['errors' => $validator->errors()], 422); // Return false
     }
-  $portal_settings = new portal_settings();  
+  $portal_settings = new Portal_settings();  
   $portal_settings->title = $request->input('title'); // Title
   $portal_settings->email = $request->input('email'); // Email
   $portal_settings->phone = $request->input('phone'); // Number

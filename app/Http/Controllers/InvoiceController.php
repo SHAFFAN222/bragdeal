@@ -53,10 +53,7 @@ class InvoiceController extends Controller
     }
     public function update(Request $request)
 {
-    // Check if ID is provided
-    if (!$request->has('id')) {
-        return response()->json(['error' => 'ID not provided'], 422);
-    }
+    
 
     $invoice = Invoice::find($request->id);
     if (!$invoice) {

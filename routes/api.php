@@ -84,6 +84,4 @@ Route::middleware('auth:sanctum')->group( function () {
    // client add
 
   });
-
-
 });
