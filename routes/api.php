@@ -47,7 +47,7 @@ Route::middleware('auth:sanctum')->group( function () {
                        Route::get('/getbyuser', [ProjectController::class, 'getbyuser']);
                        Route::get('/edit/{id}', [ProjectController::class, 'edit']);
                        Route::get('/delete/{id}', [ProjectController::class, 'delete']);
-                       Route::post('/add', [ProjectController::class, 'add']);
+                       Route::post('/create', [ProjectController::class, 'add']);
                        Route::post('/update/{id}', [ProjectController::class, 'update']);
                            });
                            // -------------------------------- Settings  routes -------------------------------
