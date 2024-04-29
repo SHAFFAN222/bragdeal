@@ -11,6 +11,7 @@ use App\Models\Roles;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -22,6 +23,7 @@ class UserController extends Controller
      */
     public function signup(Request $request)
     {
+
         $rules = [
             'username' => 'required|string|unique:users',
             'fname' => 'required|string',
@@ -53,6 +55,9 @@ class UserController extends Controller
                 'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
             ]);
+
+
+
 
             return response()->json([
                 'message' => 'User registered successfully',

@@ -3,12 +3,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
-use Laravel\Sanctum\Http\Middleware\CheckAbilities;
-use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Portal_settingsController;
+use Laravel\Sanctum\Http\Middleware\CheckAbilities;
+use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
 
@@ -68,15 +68,22 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/get_ticket/{ticketId}', [TicketController::class, 'get_ticket']);
             Route::get('/get_all_tickets', [TicketController::class, 'get_all_tickets']);
 
-
-
-
-
-
-
-          
         });
-   });
+      });
+
+
+  Route::group(['prefix' => 'client'], function () {
+    Route::post('/add', [UserController::class, 'add_client']);
+    Route::post('/update', [UserController::class, 'update_client']);
+    // delete client using id 
+    Route::get('/delete/{id}', [UserController::class, 'delete_client']);
+    Route::get('/get_client/{id}', [UserController::class, 'get_client']);
+    Route::get('/get_all_clients', [UserController::class, 'get_all_clients']);
+    Route::get('/get_client_detail', [UserController::class, 'get_client_detail']);
+    
+   // client add
+
+  });
 
 
 });
