@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
-<<<<<<< HEAD
-=======
 use App\Models\Roles;
->>>>>>> daniyal
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -160,8 +157,6 @@ class UserController extends Controller
         return response()->json(['message' => 'User updated successfully', 'data' => $user], 200);
     }
 
-<<<<<<< HEAD
-=======
     public function add_client(Request $request){
         $role = Roles::where('name', 'client')->first();
         $rules = [
@@ -203,13 +198,4 @@ class UserController extends Controller
         }
     }
     
->>>>>>> daniyal
-
-
-
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> daniyal
