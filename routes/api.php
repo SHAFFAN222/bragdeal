@@ -11,7 +11,7 @@ use App\Http\Controllers\Portal_settingsController;
 Route::post('/signup', [UserController::class, 'signup']);
 Route::post('/login', [UserController::class, 'login']);
 
-
+                // ----------------------------------- Middleware routes --------------------------
 Route::middleware('auth:sanctum')->group( function () {
       
                 // ----------------------------------- super admin routes --------------------------
@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/logout', [UserController::class, 'logout']);
           
                 // -------------------------------- article routes --------------------------------
-          Route::group(['prefix' => 'article'], function () {
+             Route::group(['prefix' => 'article'], function () {
              Route::get('/get', [ArticleController::class, 'get']);
              Route::get('/get/{id}', [ArticleController::class, 'getById']);
              Route::get('/delete/{id}', [ArticleController::class, 'delete']);
