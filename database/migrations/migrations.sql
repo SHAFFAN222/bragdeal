@@ -16,7 +16,7 @@ CREATE TABLE`invoice`(
   `project_id` int(11) NOT NULL, 
   `price` double NOT NULL,
   `created_at` datetime NOT NULL,
-   `update_at` datetime NOT NULL
+   `updated_at` datetime NOT NULL
    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 --
 INSERT INTO `invoice` (`id`, `client_id`, `project_id`, `price`, `created_at`, `update_at`) VALUES ('1', '4', '5', '5000', current_timestamp(), current_timestamp());
