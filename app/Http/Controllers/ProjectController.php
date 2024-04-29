@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 class ProjectController extends Controller
 {
@@ -132,7 +132,7 @@ public function delete($id)
 
     $project->delete();
 
-    return response()->json(['message' => 'Project deleted successfully','data' => $project], 200);
+    return response()->json(['message' => 'Project deleted successfully'], 200);
 }
 
 }
