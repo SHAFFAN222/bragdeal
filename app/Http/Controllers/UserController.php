@@ -80,28 +80,34 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function login(Request $request)
-    {
-        $loginUserData = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|min:8'
-        ]);
-        $user = User::where('email', $loginUserData['email'])->first();
-        if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
-            return response()->json([
-                'message' => 'Invalid Credentials'
-            ], 401);
-        }
-        $token = $user->createToken($user->username . '-AuthToken')->plainTextToken;
-        return response()->json([
-            'access_token' => $token,
-        ]);
-    }
+     public function login(Request $request)
+     {
+         $loginUserData = $request->validate([
+             'email' => 'required|string|email',
+             'password' => 'required|min:8'
+         ]);
+     
+         $user = User::where('email', $loginUserData['email'])->first();
+     
+         if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
+             return response()->json([
+                 'message' => 'Invalid Credentials'
+             ], 401);
+         }
+     
+         // Generate a new access token for the user
+         $token = $user->createToken($user->username . '-AuthToken')->plainTextToken;
+     
+         // Return the user data along with the access token
+         return response()->json([
+             'user' => $user,
+             'access_token' => $token,
+         ]);
+     }
 
     public function logout()
     {
-        echo "hello";
-        exit();
+        
         auth()->user()->tokens()->delete();
 
         return response()->json([
@@ -200,4 +206,82 @@ class UserController extends Controller
         }
     }
     
+//    delete client
+     
+public function delete_client($id)
+{
+    try {
+        // Find the client by ID and delete it
+        $client = User::findOrFail($id);
+        $client->delete();
+
+        return response()->json([
+            'message' => 'Client deleted successfully',
+            'client' => $client
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+    }
+}
+
+//    update client
+public function update_client(Request $request)
+{
+    // Get the authenticated user's ID
+    $authUserId = Auth::id();
+    
+    $role = Roles::where('name', 'client')->first();
+    
+    $rules = [
+        'username' => 'required|string|unique:users,username,' . $authUserId,
+        'fname' => 'required|string',
+        'lname' => 'required|string',
+        'about' => 'required|string',
+        'gender' => 'nullable|in:M,F,O',
+        'email' => 'required|string|email|unique:users,email,' . $authUserId,
+        'phone' => 'required|string|max:15|unique:users,phone,' . $authUserId,
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
+
+    try {
+        $user = User::findOrFail($authUserId);
+
+        // Update user details
+        $user->username = $request->input('username');
+        $user->fname = $request->input('fname');
+        $user->lname = $request->input('lname');
+        $user->about = $request->input('about');
+        $user->gender = $request->input('gender');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->role_id = $role->id;
+
+        $user->save();
+
+        // Update user meta if provided
+        if ($request->has('meta')) {
+            foreach ($request->input('meta') as $key => $value) {
+                DB::table('users_meta')
+                    ->updateOrInsert(
+                        ['user_id' => $user->id, 'meta_key' => $key],
+                        ['meta_value' => $value]
+                    );
+            }
+        }
+
+        return response()->json([
+            'message' => 'Client updated successfully',
+            'user' => $user
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+    }
+}
+
+
 }
