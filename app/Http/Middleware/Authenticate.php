@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Middleware;
-use App\Models\User;
-use App\Models\Ticket;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
 
 class Authenticate extends Middleware
 {
@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            var_dump('login first');
+            return route('login'); // Redirect to the login page
         }
     }
 }

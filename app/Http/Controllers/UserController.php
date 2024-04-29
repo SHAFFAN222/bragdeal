@@ -100,6 +100,8 @@ class UserController extends Controller
 
     public function logout()
     {
+        echo "hello";
+        exit();
         auth()->user()->tokens()->delete();
 
         return response()->json([
