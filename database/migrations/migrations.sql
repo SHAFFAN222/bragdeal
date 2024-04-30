@@ -22,3 +22,5 @@ CREATE TABLE`invoice`(
 INSERT INTO `invoice` (`id`, `client_id`, `project_id`, `price`, `created_at`, `update_at`) VALUES ('1', '4', '5', '5000', current_timestamp(), current_timestamp());
 ALTER TABLE `portal_settings` ADD `update_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `created_at`;
 INSERT INTO `portal_settings` (`id`, `user_id`, `title`, `email`, `phone`, `address`, `color_scheme`, `logo`, `create_at`) VALUES (NULL, '5', 'daniyal', 'DANIYAL', '565532', 'KARACHI', 'RED', 'visa.png', current_timestamp());
+ALTER TABLE `article` CHANGE `title` `article` VARCHAR(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+ALTER TABLE `article` CHANGE `category` `editorvalue` VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;

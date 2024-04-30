@@ -12,14 +12,15 @@ class Article extends Model
     protected $fillable = [
         
         'author_id',
-        'title',
-        'publication_date',
-        'status',
+        'article',
+        'start_date',
         'external_url',
         'like_count',
         'comment',
         'image',
-        'category',
+        'status',
+        'editorValue',
+        
     ];
     public $timestamps = false;
   
