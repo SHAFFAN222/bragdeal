@@ -70,8 +70,6 @@ Route::middleware('auth:sanctum')->group( function () {
 
         });
       });
-
-
   Route::group(['prefix' => 'client'], function () {
     Route::post('/add', [UserController::class, 'add_client']);
     Route::post('/update', [UserController::class, 'update_client']);
