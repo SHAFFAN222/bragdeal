@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->group( function () {
                                Route::get('/get/{id}', [Portal_settingsController::class, 'getById']);
                                // Route::get('/getbyuser', [Portal_settingsController::class, 'getbyuser']);
                                Route::get('/delete/{id}', [Portal_settingsController::class, 'delete']);
-                               Route::post('/create', [Portal_settingsController::class, 'add']);
+                               Route::post('/add', [Portal_settingsController::class, 'add']);
                                Route::post('/update/{id}', [Portal_settingsController::class, 'update']);
                                });
         // Tickets
