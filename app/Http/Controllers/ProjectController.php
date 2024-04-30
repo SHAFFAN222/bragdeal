@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -37,41 +36,53 @@ public function getbyuser(Request $request) {
     
 public function add(Request $request)
 {
-    
+    // Ensure user is authenticated
     $user = Auth::user();
-      
+    if (!$user) {
+        return response()->json(['error' => 'Unauthenticated'], 401);
+    }
+
+    // Validation rules
     $rules = [
-        
-        // Assuming user_id is an integer
-        'title' => 'required|string', // Assuming title is a string
-        'start_date' => 'required',
-        'end_date' => ' required',// Ensuring end_date is after or equal to start_date
-        'type' => 'required|string', // Assuming type is a string
-        'attachment' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048', // File validation rules
-     
-       
+        'title' => 'required|string',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after_or_equal:start_date',
+        'type' => 'required|string',
+        'attachment' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048',
+         'description' => 'required|string',
+         'category' => 'required|string',
     ];
 
     // Validate the request
     $validator = Validator::make($request->all(), $rules);
-    // dd($validator);
-     if ($validator->fails()) {
-     
+    if ($validator->fails()) {
         return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    // Store attachment if provided
+    $attachmentPath = null;
+    if ($request->hasFile('attachment')) {
+        $attachmentPath = $request->file('attachment')->store('attachments');
+    }
+
+    // Create and save the project
     $project = new Project();
-    // $project->user_id = $request->input('user_id');
     $project->title = $request->input('title');
     $project->start_date = $request->input('start_date');
     $project->end_date = $request->input('end_date');
-    $project->type = $request->input('type');
-    $project->attachment = $request->file('attachment')->store('attachments');
+    $project->type = json_encode($request->input('type'));
+    $project->description = $request->input('description');
+    $project->category = json_encode($request->input('category'));
+    $project->attachment = $attachmentPath;
     $project->user_id = $user->id;
     $project->save();
+
+    // Update attachment URL if it exists
     if ($project->attachment) {
-        $project->attachment = url('/' . $project->attachment); 
-     }
-    return response()->json(['message' => 'Create Project Successfully','data' => $project], 200);
+        $project->attachment = url('/' . $project->attachment);
+    }
+
+    return response()->json(['message' => 'Project created successfully', 'data' => $project], 200);
 }
 
 public function update(Request $request)
@@ -89,6 +100,8 @@ public function update(Request $request)
         'end_date' => 'required',
         'type' => 'sometimes|required|string',
         'attachment' => 'nullable|file',
+        'description' => 'required|string',
+        'category' => 'required|string',
     
     ];
 
@@ -111,6 +124,12 @@ public function update(Request $request)
     }
     if ($request->has('type')) {
         $project->type = $request->input('type');
+    }
+    if ($request->has('description')) {
+        $project->description = $request->input('description');
+    }
+    if ($request->has('category')) {
+        $project->category = $request->input('category');
     }
     if ($request->hasFile('attachment')) {
         $project->attachment = $request->file('attachment')->store('attachments');
