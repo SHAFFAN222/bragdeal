@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group( function () {
                 Route::get('/get', [ArticleController::class, 'get']);
                 Route::get('/get/{id}', [ArticleController::class, 'getById']);
                 Route::get('/delete/{id}', [ArticleController::class, 'delete']);
-                Route::post('/create', [ArticleController::class, 'add']);
+                Route::post('/add', [ArticleController::class, 'add']);
                 Route::post('/update/{id}', [ArticleController::class, 'update']);
                    });
                  
