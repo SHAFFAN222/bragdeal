@@ -97,11 +97,12 @@ class ArticleController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-        if ($request->has('title')) {
-            $article->title = $request->input('title');
+        if ($request->has('article')) {
+            $article->article = $request->input('article');
         }
-        if ($request->has('publication_date')) {
-            $article->publication_date = $request->input('publication_date');
+        
+        if ($request->has('start_date')) {
+            $article->start_date = $request->input('start_date');
         }
         if ($request->has('external_url')) {
             $article->external_url = $request->input('external_url');
@@ -116,8 +117,12 @@ class ArticleController extends Controller
             $imagePath = $request->file('image')->store('images');
             $article->image = $imagePath;
         }
-        if ($request->has('category')) {
-            $article->category = $request->input('category');
+       
+        if ($request->has('status')) {
+            $article->status = $request->input('status');
+        }
+        if ($request->has('editorValue')) {
+            $article->editorValue = $request->input('editorValue');
         }
         $article->save();
         return response()->json(['message' =>'article updated successfully' ,'data' => $article], 200);
