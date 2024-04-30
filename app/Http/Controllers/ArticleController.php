@@ -36,13 +36,14 @@ class ArticleController extends Controller
     $user = Auth::user(); 
 
     $rules = [
-        'title' => 'required|string',
-        'publication_date' => 'required|date',
+        'article' => 'required|string',
+        'start_date' => 'required|date',
         'external_url' => 'required|string',
         'like_count' => 'required|integer',
         'comment' => 'required|string',
         'image' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048',
-        'category' => 'required|string', 
+        'status' => '|nullable|in:draft,published,archived',
+        'editorValue' => 'required|string',
     ];
 
     // Validate the request
@@ -56,9 +57,10 @@ class ArticleController extends Controller
     $article = new Article();
 
 
-    $article->title = $request->input('title');
+    $article->article = $request->input('article');
   
-    $article->publication_date = $request->input('publication_date');
+    
+    $article->start_date = $request->input('start_date');
     $article->external_url = $request->input('external_url');
     $article->like_count = $request->input('like_count');
     $article->comment = $request->input('comment');
@@ -69,9 +71,11 @@ class ArticleController extends Controller
         $article->image = $imagePath;
     }
     $article->author_id = $user->id;
-    $article->category = json_encode($request->input('category'));
+    $article->status = $request->input('status');
+    // $article->status = json_encode($request->input('status'));
+    $article->editorValue = $request->input('editorValue');
     $article->save();
-    return response()->json(['message' => 'article created successfully', 'data' => $article], 200);
+    return response()->json(['message' => 'article created successfully', 'article' => $article], 200);
 }   
     public function update(Request $request)
     {
@@ -80,13 +84,14 @@ class ArticleController extends Controller
             return response()->json(['error' => 'article not found'], 404);
         }
             $rules = [
-            'title' => 'required|string',
-            'publication_date' => 'required|date',
+            'article' => 'required|string',
+            'start_date' => 'required|date',
             'external_url' => 'required|string',
             'like_count' => 'required|integer',
             'comment' => 'required|string',
             'image' => 'nullable|file|mimes:jpg,gif,jpeg,png,doc,xls,docx,xlsx,pdf|max:2048',
-            'category' => 'required|string',
+            'status' => 'required|nullable|in:Publish,F,O',
+            'editorValue' => 'required|string',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {

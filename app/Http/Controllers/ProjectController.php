@@ -82,7 +82,9 @@ public function add(Request $request)
         $project->attachment = url('/' . $project->attachment);
     }
 
-    return response()->json(['message' => 'Project created successfully', 'data' => $project], 200);
+    return response()->json([
+        'Project' => $project
+    ], 201);
 }
 
 public function update(Request $request)
@@ -141,7 +143,7 @@ public function update(Request $request)
         $project->attachment = url('/' . $project->attachment); 
      }
     // Return success response
-    return response()->json(['message' =>'Project updated successfully' ,'data' => $project], 200);
+    return response()->json(['project' => $project], 200);
 }
 public function delete($id)
 { 
