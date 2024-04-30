@@ -4,13 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Portal_settingsController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
-Route::post('/signup', [UserController::class, 'signup']);
+Route::post('/signup', [UserController::class, 'signup']); 
 Route::post('/login', [UserController::class, 'login']);
+Route::get('/roles', [RoleController::class, 'roles']);
 
 Route::middleware('auth:sanctum')->group( function () {
     Route::group(['prefix' => 'superadmin'], function () {

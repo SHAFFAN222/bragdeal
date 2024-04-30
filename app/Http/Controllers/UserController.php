@@ -80,29 +80,32 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function login(Request $request)
-    {
-        // var_dump('sad'); die;
-        $loginUserData = $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|min:8'
-        ]);
-
-        $user = User::where('email', $loginUserData['email'])->first();
-
-        if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
-            return response()->json([
-                'message' => 'Invalid Credentials'
-            ], 401);
-        }
-
-
-        $token = $user->createToken($user->username . '-AuthToken')->plainTextToken;
-
-// Add the access token to the user array
-$user->access_token = $token;
-
-return response()->json(['user' => $user]);
+     public function login(Request $request)
+     {
+         $loginUserData = $request->validate([
+             'email' => 'required|string|email',
+             'password' => 'required|min:8'
+         ]);
+     
+         $user = User::where('email', $loginUserData['email'])->first();
+     
+         if (!$user || !Hash::check($loginUserData['password'], $user->password)) {
+             return response()->json([
+                 'message' => 'Invalid Credentials'
+             ], 401);
+         }
+     
+         // Retrieve role name based on role ID
+         $role = Roles::find($user->role_id);
+         $roleName = $role ? $role->name : null;
+     
+         $token = $user->createToken($user->username . '-AuthToken')->plainTextToken;
+     
+         // Add the access token and role name to the user object
+         $user->access_token = $token;
+         $user->role_name = $roleName;
+     
+         return response()->json(['user' => $user]);
      }
 
     public function logout()
