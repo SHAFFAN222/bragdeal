@@ -19077,3 +19077,61 @@
 #14 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('D:\\\\xampp\\\\htdocs...')
 #15 {main}
 "} 
+[2024-04-30 12:31:01] local.ERROR: include(D:\xampp\htdocs\bragdeal\vendor\composer/../symfony/error-handler/ErrorRenderer/FileLinkFormatter.php): Failed to open stream: No such file or directory {"exception":"[object] (ErrorException(code: 0): include(D:\\xampp\\htdocs\\bragdeal\\vendor\\composer/../symfony/error-handler/ErrorRenderer/FileLinkFormatter.php): Failed to open stream: No such file or directory at D:\\xampp\\htdocs\\bragdeal\\vendor\\composer\\ClassLoader.php:444)
+[stacktrace]
+#0 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(270): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'include(D:\\\\xamp...', 'D:\\\\xampp\\\\htdocs...', 444)
+#1 D:\\xampp\\htdocs\\bragdeal\\vendor\\composer\\ClassLoader.php(444): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'include(D:\\\\xamp...', 'D:\\\\xampp\\\\htdocs...', 444)
+#2 D:\\xampp\\htdocs\\bragdeal\\vendor\\composer\\ClassLoader.php(444): include('D:\\\\xampp\\\\htdocs...')
+#3 D:\\xampp\\htdocs\\bragdeal\\vendor\\composer\\ClassLoader.php(322): Composer\\Autoload\\includeFile('D:\\\\xampp\\\\htdocs...')
+#4 [internal function]: Composer\\Autoload\\ClassLoader->loadClass('Symfony\\\\Compone...')
+#5 D:\\xampp\\htdocs\\bragdeal\\vendor\\symfony\\var-dumper\\Dumper\\CliDumper.php(86): class_exists('Symfony\\\\Compone...')
+#6 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\CliDumper.php(55): Symfony\\Component\\VarDumper\\Dumper\\CliDumper->__construct()
+#7 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\CliDumper.php(73): Illuminate\\Foundation\\Console\\CliDumper->__construct(Object(Symfony\\Component\\Console\\Output\\ConsoleOutput), 'D:\\\\xampp\\\\htdocs...', 'D:\\\\xampp\\\\htdocs...')
+#8 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Providers\\FoundationServiceProvider.php(101): Illuminate\\Foundation\\Console\\CliDumper::register('D:\\\\xampp\\\\htdocs...', 'D:\\\\xampp\\\\htdocs...')
+#9 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Providers\\FoundationServiceProvider.php(70): Illuminate\\Foundation\\Providers\\FoundationServiceProvider->registerDumper()
+#10 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(687): Illuminate\\Foundation\\Providers\\FoundationServiceProvider->register()
+#11 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\ProviderRepository.php(75): Illuminate\\Foundation\\Application->register(Object(Illuminate\\Foundation\\Providers\\FoundationServiceProvider))
+#12 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(664): Illuminate\\Foundation\\ProviderRepository->load(Array)
+#13 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\RegisterProviders.php(17): Illuminate\\Foundation\\Application->registerConfiguredProviders()
+#14 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(242): Illuminate\\Foundation\\Bootstrap\\RegisterProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#15 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(383): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#16 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(153): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#17 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#18 {main}
+"} 
+[2024-04-30 12:31:02] local.ERROR: Uncaught Error: Class "Symfony\Component\Console\Output\AnsiColorMode" not found in D:\xampp\htdocs\bragdeal\vendor\symfony\console\Terminal.php:18
+Stack trace:
+#0 D:\xampp\htdocs\bragdeal\vendor\laravel\framework\src\Illuminate\Foundation\Exceptions\Handler.php(754): Symfony\Component\Console\Application->__construct()
+#1 D:\xampp\htdocs\bragdeal\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(466): Illuminate\Foundation\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(ErrorException))
+#2 D:\xampp\htdocs\bragdeal\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(159): Illuminate\Foundation\Console\Kernel->renderException(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(ErrorException))
+#3 Command line code(1): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Class \"Symfony\\Component\\Console\\Output\\AnsiColorMode\" not found in D:\\xampp\\htdocs\\bragdeal\\vendor\\symfony\\console\\Terminal.php:18
+Stack trace:
+#0 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(754): Symfony\\Component\\Console\\Application->__construct()
+#1 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(466): Illuminate\\Foundation\\Exceptions\\Handler->renderForConsole(Object(Symfony\\Component\\Console\\Output\\ConsoleOutput), Object(ErrorException))
+#2 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(159): Illuminate\\Foundation\\Console\\Kernel->renderException(Object(Symfony\\Component\\Console\\Output\\ConsoleOutput), Object(ErrorException))
+#3 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+  thrown at D:\\xampp\\htdocs\\bragdeal\\vendor\\symfony\\console\\Terminal.php:18)
+[stacktrace]
+#0 {main}
+"} 
+[2024-04-30 12:31:02] local.ERROR: Uncaught Error: Class "Symfony\Component\Console\Output\AnsiColorMode" not found in D:\xampp\htdocs\bragdeal\vendor\symfony\console\Terminal.php:18
+Stack trace:
+#0 D:\xampp\htdocs\bragdeal\vendor\laravel\framework\src\Illuminate\Foundation\Exceptions\Handler.php(754): Symfony\Component\Console\Application->__construct()
+#1 D:\xampp\htdocs\bragdeal\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(466): Illuminate\Foundation\Exceptions\Handler->renderForConsole(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(ErrorException))
+#2 D:\xampp\htdocs\bragdeal\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(159): Illuminate\Foundation\Console\Kernel->renderException(Object(Symfony\Component\Console\Output\ConsoleOutput), Object(ErrorException))
+#3 Command line code(1): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}
+  thrown {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Uncaught Error: Class \"Symfony\\Component\\Console\\Output\\AnsiColorMode\" not found in D:\\xampp\\htdocs\\bragdeal\\vendor\\symfony\\console\\Terminal.php:18
+Stack trace:
+#0 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php(754): Symfony\\Component\\Console\\Application->__construct()
+#1 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(466): Illuminate\\Foundation\\Exceptions\\Handler->renderForConsole(Object(Symfony\\Component\\Console\\Output\\ConsoleOutput), Object(ErrorException))
+#2 D:\\xampp\\htdocs\\bragdeal\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(159): Illuminate\\Foundation\\Console\\Kernel->renderException(Object(Symfony\\Component\\Console\\Output\\ConsoleOutput), Object(ErrorException))
+#3 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 {main}
+  thrown at D:\\xampp\\htdocs\\bragdeal\\vendor\\symfony\\console\\Terminal.php:18)
+[stacktrace]
+#0 {main}
+"} 
