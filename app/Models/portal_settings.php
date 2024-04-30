@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-class portal_settings extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+class Portal_settings extends Model
 {
     use HasFactory;
     protected $table = 'portal_settings';
