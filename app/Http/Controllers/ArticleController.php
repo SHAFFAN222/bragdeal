@@ -69,7 +69,7 @@ class ArticleController extends Controller
         $article->image = $imagePath;
     }
     $article->author_id = $user->id;
-    $article->category = $request->input('category'); 
+    $article->category = json_encode($request->input('category'));
     $article->save();
     return response()->json(['message' => 'article created successfully', 'data' => $article], 200);
 }   
