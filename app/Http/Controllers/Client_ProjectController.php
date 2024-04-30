@@ -9,13 +9,13 @@ class Client_ProjectController extends Controller
     public function get_projects()
     
     {    
-        var_dump('client_project');die();
-        $projects = Client_Project::get();
-        $projects->transform(function ($projects) {
-            $projects->attachment = $projects->attachment_url;
-                    return $projects;
+    dd('Project');
+        $client_projects = Client_Project::get();
+        $client_projects->transform(function ($client_projects) {
+            $client_projects->attachment = $client_projects->attachment_url;
+                    return $client_projects;
            });
-        return response()->json(['message' => 'Get  Project Successfully','data' => $projects], 200);
+        return response()->json(['message' => 'Get  Project Successfully','data' => $client_projects], 200);
 
     }
     
