@@ -10,7 +10,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Portal_settingsController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
-Route::post('/signup', [UserController::class, 'signup']);
+Route::post('/signup', [UserController::class, 'signup']); 
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/roles', [RoleController::class, 'roles']);
 
