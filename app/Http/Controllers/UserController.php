@@ -82,6 +82,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
+        // var_dump('sad'); die;
         $loginUserData = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|min:8'
@@ -98,12 +99,11 @@ class UserController extends Controller
 
         $token = $user->createToken($user->username . '-AuthToken')->plainTextToken;
 
+// Add the access token to the user array
+$user->access_token = $token;
 
-        return response()->json([
-            'user' => $user,
-            'access_token' => $token,
-        ]);
-    }
+return response()->json(['user' => $user]);
+     }
 
     public function logout()
     {
