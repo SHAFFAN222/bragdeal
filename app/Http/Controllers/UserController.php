@@ -106,7 +106,7 @@ class UserController extends Controller
          $user->role_name = $roleName;
      
          return response()->json(['user' => $user]);
-     }
+     } 
 
     public function logout()
     {
