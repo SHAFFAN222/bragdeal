@@ -30,6 +30,8 @@ class UserController extends Controller
             'email' => 'required|string|email|unique:users',
             'phone' => 'required|string|max:15|unique:users',
             'password' => 'required|string|min:8', // Minimum password length set to 8
+            'role_id' => 'required|exists:roles,id',
+            
         ];
 
         // Validate the request
@@ -51,6 +53,7 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
+                'role_id' => $request->input('role_id'), 
             ]);
 
 
