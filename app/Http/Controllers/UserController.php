@@ -53,7 +53,6 @@ class UserController extends Controller
                 'email' => $request->input('email'),
                 'phone' => $request->input('phone'),
                 'password' => Hash::make($request->input('password')),
-                'role_id' => $request->input('role_id'), 
             ]);
 
 
