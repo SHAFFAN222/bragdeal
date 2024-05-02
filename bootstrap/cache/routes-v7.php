@@ -548,11 +548,11 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/api/(?|superadmin/(?|article/(?|get/([^/]++)(*:52)|delete/([^/]++)(*:74)|update/([^/]++)(*:96))|invoice/(?|get/([^/]++)(*:127)|delete/([^/]++)(*:150)|update/([^/]++)(*:173))|p(?|rojects/(?|get/([^/]++)(*:209)|edit/([^/]++)(*:230)|delete/([^/]++)(*:253)|update/([^/]++)(*:276))|ortal_settings/(?|get/([^/]++)(*:315)|delete/([^/]++)(*:338)|update/([^/]++)(*:361)))|tickets/get_ticket/([^/]++)(*:398))|client/(?|delete/([^/]++)(*:432)|get_client/([^/]++)(*:459))))/?$}sDu',
+      0 => '{^(?|/api/(?|client(?|_project/(?|get/([^/]++)(*:48)|delete/([^/]++)(*:70)|update/([^/]++)(*:92))|/(?|delete/([^/]++)(*:119)|get_client/([^/]++)(*:146)))|superadmin/(?|article/(?|get/([^/]++)(*:193)|delete/([^/]++)(*:216)|update/([^/]++)(*:239))|invoice/(?|get/([^/]++)(*:271)|delete/([^/]++)(*:294)|update/([^/]++)(*:317))|p(?|rojects/(?|get/([^/]++)(*:353)|edit/([^/]++)(*:374)|delete/([^/]++)(*:397)|update/([^/]++)(*:420))|ortal_settings/(?|get/([^/]++)(*:459)|delete/([^/]++)(*:482)|update/([^/]++)(*:505)))|tickets/get_ticket/([^/]++)(*:542))))/?$}sDu',
     ),
     3 => 
     array (
-      52 => 
+      48 => 
       array (
         0 => 
         array (
@@ -575,7 +575,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      74 => 
+      70 => 
       array (
         0 => 
         array (
@@ -598,7 +598,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      96 => 
+      92 => 
       array (
         0 => 
         array (
@@ -620,7 +620,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      127 => 
+      119 => 
       array (
         0 => 
         array (
@@ -643,7 +643,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      150 => 
+      146 => 
       array (
         0 => 
         array (
@@ -666,7 +666,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      173 => 
+      193 => 
       array (
         0 => 
         array (
@@ -680,7 +680,8 @@ app('router')->setCompiledRoutes(
           ),
           2 => 
           array (
-            'POST' => 0,
+            'GET' => 0,
+            'HEAD' => 1,
           ),
           3 => NULL,
           4 => false,
@@ -688,7 +689,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      209 => 
+      216 => 
       array (
         0 => 
         array (
@@ -711,7 +712,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      230 => 
+      239 => 
       array (
         0 => 
         array (
@@ -734,7 +735,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      253 => 
+      294 => 
       array (
         0 => 
         array (
@@ -757,7 +758,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      276 => 
+      317 => 
       array (
         0 => 
         array (
@@ -779,7 +780,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      315 => 
+      353 => 
       array (
         0 => 
         array (
@@ -802,7 +803,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      338 => 
+      374 => 
       array (
         0 => 
         array (
@@ -825,7 +826,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      361 => 
+      397 => 
       array (
         0 => 
         array (
@@ -847,7 +848,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      398 => 
+      459 => 
       array (
         0 => 
         array (
@@ -857,7 +858,7 @@ app('router')->setCompiledRoutes(
           ),
           1 => 
           array (
-            0 => 'ticketId',
+            0 => 'id',
           ),
           2 => 
           array (
@@ -870,7 +871,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      432 => 
+      482 => 
       array (
         0 => 
         array (
@@ -893,7 +894,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      459 => 
+      505 => 
       array (
         0 => 
         array (
@@ -904,6 +905,28 @@ app('router')->setCompiledRoutes(
           1 => 
           array (
             0 => 'id',
+          ),
+          2 => 
+          array (
+            'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
+          6 => NULL,
+        ),
+      ),
+      542 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'generated::psrPU1D5zK2I6CYz',
+          ),
+          1 => 
+          array (
+            0 => 'ticketId',
           ),
           2 => 
           array (
@@ -1917,8 +1940,8 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:sanctum',
         ),
-        'uses' => 'App\\Http\\Controllers\\Portal_settingsController@get',
-        'controller' => 'App\\Http\\Controllers\\Portal_settingsController@get',
+        'uses' => 'Portal_settingsController@get',
+        'controller' => 'Portal_settingsController@get',
         'namespace' => NULL,
         'prefix' => 'api/superadmin/portal_settings',
         'where' => 
@@ -1955,8 +1978,8 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:sanctum',
         ),
-        'uses' => 'App\\Http\\Controllers\\Portal_settingsController@getById',
-        'controller' => 'App\\Http\\Controllers\\Portal_settingsController@getById',
+        'uses' => 'Portal_settingsController@getById',
+        'controller' => 'Portal_settingsController@getById',
         'namespace' => NULL,
         'prefix' => 'api/superadmin/portal_settings',
         'where' => 
@@ -1993,8 +2016,8 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:sanctum',
         ),
-        'uses' => 'App\\Http\\Controllers\\Portal_settingsController@delete',
-        'controller' => 'App\\Http\\Controllers\\Portal_settingsController@delete',
+        'uses' => 'Portal_settingsController@delete',
+        'controller' => 'Portal_settingsController@delete',
         'namespace' => NULL,
         'prefix' => 'api/superadmin/portal_settings',
         'where' => 
@@ -2030,8 +2053,8 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:sanctum',
         ),
-        'uses' => 'App\\Http\\Controllers\\Portal_settingsController@add',
-        'controller' => 'App\\Http\\Controllers\\Portal_settingsController@add',
+        'uses' => 'Portal_settingsController@add',
+        'controller' => 'Portal_settingsController@add',
         'namespace' => NULL,
         'prefix' => 'api/superadmin/portal_settings',
         'where' => 
@@ -2067,8 +2090,8 @@ app('router')->setCompiledRoutes(
           0 => 'api',
           1 => 'auth:sanctum',
         ),
-        'uses' => 'App\\Http\\Controllers\\Portal_settingsController@update',
-        'controller' => 'App\\Http\\Controllers\\Portal_settingsController@update',
+        'uses' => 'Portal_settingsController@update',
+        'controller' => 'Portal_settingsController@update',
         'namespace' => NULL,
         'prefix' => 'api/superadmin/portal_settings',
         'where' => 

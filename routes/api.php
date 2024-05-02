@@ -7,7 +7,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\Portal_settingsController;
+use App\Http\Controllers\Portal_settingController;
+use App\Http\Controllers\Client_ProjectController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 Route::post('/signup', [UserController::class, 'signup']); 
@@ -71,6 +72,15 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/get_all_tickets', [TicketController::class, 'get_all_tickets']);
 
         });
+       
+        Route::group(['prefix' => 'client_project'], function () {
+          Route::get('/get', [Client_ProjectController::class, 'get']);
+          Route::get('/get/{id}', [Client_ProjectController::class, 'getById']);
+          Route::get('/delete/{id}', [Client_ProjectController::class, 'delete']);
+          Route::post('/add', [Client_ProjectController::class, 'add']);
+          Route::post('/update/{id}', [Client_ProjectController::class, 'update']);
+        });
+      
       });
   Route::group(['prefix' => 'client'], function () {
     Route::post('/add', [UserController::class, 'add_client']);
@@ -84,4 +94,6 @@ Route::middleware('auth:sanctum')->group( function () {
    // client add
 
   });
+  
+  
 });
