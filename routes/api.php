@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Portal_settingsController;
+use App\Http\Controllers\Client_ProjectController;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 
@@ -50,6 +51,15 @@ Route::middleware('auth:sanctum')->group( function () {
             Route::get('/delete/{id}', [ProjectController::class, 'delete']);
             Route::post('/create', [ProjectController::class, 'add']);
             Route::post('/update/{id}', [ProjectController::class, 'update']);
+        });
+        
+        // Client Project routes
+        Route::group(['prefix' => 'client_project'], function () {
+            Route::get('/get', [Client_ProjectController::class, 'get']);
+            Route::get('/get/{id}', [Client_ProjectController::class, 'getById']);
+            Route::get('/delete/{id}', [Client_ProjectController::class, 'delete']);
+            Route::post('/create', [Client_ProjectController::class, 'add']);
+            Route::post('/update/{id}', [Client_ProjectController::class, 'update']);
         });
 
         // Portal Settings routes

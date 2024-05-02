@@ -17,6 +17,7 @@ class Project extends Model
         'type',
         'attachment',
         'status',
+        
      
        
     ];
